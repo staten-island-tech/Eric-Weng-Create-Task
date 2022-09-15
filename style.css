@@ -9,5 +9,29 @@ body,
 
 
 input {
-    width: 100%;
-  }
+  width: 50%;
+}
+
+form{
+  margin-top: 5rem;
+  font-size: 4rem;
+}
+
+.box {
+  height: 20rem;
+  width: 20rem;
+  border-radius: 1rem;
+  box-shadow: 1rem 1rem 1rem;
+  transition: all .2s ease-in-out;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+.box:hover { 
+  transform: scale(1.1); 
+}
