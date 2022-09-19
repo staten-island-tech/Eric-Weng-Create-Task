@@ -22,7 +22,7 @@ form{
   font-size: 4rem;
 }
 
-.display-card {
+#display-card {
   height: 20rem;
   width: 20rem;
   border-radius: 1rem;
@@ -43,7 +43,7 @@ form{
 align-items: center;
 }
 
-.display-card:hover { 
+#display-card:hover { 
   transform: scale(1.1); 
 }
 

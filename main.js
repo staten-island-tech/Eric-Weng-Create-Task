@@ -20,13 +20,22 @@ async function getData(URL) {
     function shuffle(data) {
       data.sort(() => Math.random() - 0.5);
     }
+
+    const newquestion = data.map((data, index) => ({
+      name: data.name,
+      symbol: data.symbol,
+      id: index + 1,
+    }));
+
+    console.log(newquestion);
+
     shuffle(data);
     console.log(data[0]);
 
     function displayE() {
-      DOMSelectors.display.insertAdjacentHTML(
+      DOMSelectors.card.insertAdjacentHTML(
         "afterbegin",
-        `<div class="display-card">
+        `<div class="card">
 <h3 class="display-text" >${data[0].symbol}</h2>
       </div>
  `
@@ -37,6 +46,12 @@ async function getData(URL) {
       const answer = DOMSelectors.name.value;
       const correct = data[0].name;
       if (answer.toLowerCase() === correct.toLowerCase()) {
+        DOMSelectors.card.innerHTML = "";
+        displayE(data[id + 1].symbol);
+        DOMSelectors.form.reset();
+        console.log(data[0]);
+      }
+      if (shuffle(data[0]) === data[0]) {
         shuffle(data);
         displayE();
         DOMSelectors.form.reset();
@@ -49,6 +64,7 @@ async function getData(URL) {
     displayE();
     DOMSelectors.skip.addEventListener("click", function (e) {
       e.preventDefault();
+      DOMSelectors.card.innerHTML = "";
       shuffle(data);
       displayE();
       DOMSelectors.form.reset();
