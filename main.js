@@ -23,10 +23,6 @@ async function getData(URL) {
     shuffle(data);
     console.log(data[0]);
 
-    function hide() {
-      DOMSelectors.card.hide();
-    }
-
     function displayE() {
       DOMSelectors.display.insertAdjacentHTML(
         "afterbegin",
@@ -35,26 +31,29 @@ async function getData(URL) {
       </div>
  `
       );
-      DOMSelectors.form.addEventListener("submit", function (e) {
-        if (DOMSelectors.name.value === data[0].name) {
-          hide();
-          e.preventDefault();
-          shuffle(data);
-          displayE();
-          DOMSelectors.form.reset();
-          console.log(data[0]);
-          console.log(DOMSelectors.name.value);
-        }
-      });
     }
+    DOMSelectors.form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const answer = DOMSelectors.name.value;
+      const correct = data[0].name;
+      if (answer.toLowerCase() === correct.toLowerCase()) {
+        shuffle(data);
+        displayE();
+        DOMSelectors.form.reset();
+        console.log(data[0]);
+      }
+      if (answer.toLowerCase() !== correct.toLowerCase()) {
+        DOMSelectors.form.reset();
+      }
+    });
     displayE();
-    DOMSelectors.skip.addEventListener("click", hide()){
+    DOMSelectors.skip.addEventListener("click", function (e) {
+      e.preventDefault();
       shuffle(data);
       displayE();
-      e.preventDefault();
       DOMSelectors.form.reset();
       console.log(data[0]);
-    }
+    });
   } catch (err) {
     console.error(err);
   }
