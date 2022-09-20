@@ -54,7 +54,6 @@ async function getData(URL) {
 
       if (answer.toLowerCase() === correct.toLowerCase()) {
         QuestionIndex = QuestionIndex + 1;
-        console.log(QuestionIndex);
         DOMSelectors.card.innerHTML = "";
         displayE(shuffle[QuestionIndex].symbol);
         DOMSelectors.form.reset();
