@@ -17,6 +17,8 @@ async function getData(URL) {
     const response = await fetch(URL);
     const data = await response.json();
     var QuestionIndex = 0;
+    const QuestionHistory = [];
+    const SkipHistory = [];
 
     const shuffle = data
       .sort(() => Math.random() - 0.5)
@@ -24,10 +26,6 @@ async function getData(URL) {
         name: data.name,
         symbol: data.symbol,
       }));
-
-    console.log(shuffle);
-    console.log(shuffle[QuestionIndex]);
-
     function displayE() {
       DOMSelectors.card.insertAdjacentHTML(
         "afterbegin",
@@ -57,7 +55,8 @@ async function getData(URL) {
         DOMSelectors.card.innerHTML = "";
         displayE();
         DOMSelectors.form.reset();
-        console.log(shuffle[QuestionIndex]);
+        QuestionHistory.push[shuffle[QuestionIndex]];
+        console.log(QuestionHistory);
       }
       if (answer.toLowerCase() !== correct.toLowerCase()) {
         DOMSelectors.form.reset();
@@ -70,6 +69,7 @@ async function getData(URL) {
       DOMSelectors.card.innerHTML = "";
       displayE();
       DOMSelectors.form.reset();
+      SkipHistory.push[shuffle[QuestionIndex.length - 1]];
     });
   } catch (err) {
     console.error(err);
