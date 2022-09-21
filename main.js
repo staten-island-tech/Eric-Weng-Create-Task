@@ -26,27 +26,27 @@ async function getData(URL) {
       }));
 
     console.log(shuffle);
+    console.log(shuffle[QuestionIndex]);
 
     function displayE() {
       DOMSelectors.card.insertAdjacentHTML(
         "afterbegin",
         `<div class="card">
-<h3 class="display-text" >${shuffle[QuestionIndex].symbol}</h2>
+<h2 class="display-text" >${shuffle[QuestionIndex].symbol}</h2>
       </div>
  `
       );
     }
-    function displayMSG() {
+
+    function displayAns() {
       DOMSelectors.display.insertAdjacentHTML(
         "afterbegin",
-        `
-        <div class="message">
-        <h2 class="display-text"><That is the LAST element!!!!!</h2>
-        </div>
-      
-      `
+        `<div>
+        <h2>${shuffle[QuestionIndex].symbol} = ${shuffle[QuestionIndex].symbol}</h2>
+        </div>`
       );
     }
+
     DOMSelectors.form.addEventListener("submit", function (e) {
       e.preventDefault();
       const answer = DOMSelectors.name.value;
@@ -55,15 +55,12 @@ async function getData(URL) {
       if (answer.toLowerCase() === correct.toLowerCase()) {
         QuestionIndex = QuestionIndex + 1;
         DOMSelectors.card.innerHTML = "";
-        displayE(shuffle[QuestionIndex].symbol);
+        displayE();
         DOMSelectors.form.reset();
+        console.log(shuffle[QuestionIndex]);
       }
       if (answer.toLowerCase() !== correct.toLowerCase()) {
         DOMSelectors.form.reset();
-      }
-      if (QuestionIndex > 118) {
-        alert("That is the LAST element!!!!!");
-        return false;
       }
     });
     displayE();
@@ -71,13 +68,8 @@ async function getData(URL) {
       e.preventDefault();
       QuestionIndex = QuestionIndex + 1;
       DOMSelectors.card.innerHTML = "";
-      displayE(shuffle[QuestionIndex].symbol);
+      displayE();
       DOMSelectors.form.reset();
-      if (QuestionIndex > 118) {
-        displayMSG();
-        alert("That is the LAST element!!!!!");
-        return false;
-      }
     });
   } catch (err) {
     console.error(err);
