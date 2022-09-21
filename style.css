@@ -13,6 +13,10 @@ body{
   justify-content: center;
 }
 
+h2{
+  font-size: 2rem;
+}
+
 input {
   width: 50%;
 }
@@ -54,4 +58,18 @@ align-items: center;
   height: 5rem;
   width: 10rem;
 
+}
+
+#list{
+  display: flex;
+  margin-top: 2rem;
+}
+
+#list1, #list2{
+  text-align: center;
+  width: 30rem;
+  height: auto;
+  border-radius: 2rem;
+  border-style: solid;
+  border-color: red;
 }
