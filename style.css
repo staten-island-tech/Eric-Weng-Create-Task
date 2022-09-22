@@ -63,6 +63,7 @@ align-items: center;
 #list{
   display: flex;
   margin-top: 2rem;
+  justify-content: space-evenly;
 }
 
 #list1, #list2{
@@ -71,5 +72,5 @@ align-items: center;
   height: auto;
   border-radius: 2rem;
   border-style: solid;
-  border-color: red;
+  background-color: lightblue;
 }
