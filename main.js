@@ -67,6 +67,10 @@ async function getData(URL) {
       if (answer.toLowerCase() !== correct.toLowerCase()) {
         DOMSelectors.form.reset();
       }
+      if (shuffle[QuestionIndex].id == 118) {
+        console.log(shuffle[QuestionIndex].id);
+        alert("This Will be the Last Element!");
+      }
     });
     displayE();
     DOMSelectors.skip.addEventListener("click", function (e) {
@@ -87,6 +91,10 @@ async function getData(URL) {
  `
         );
       });
+      if (shuffle[QuestionIndex].id == 118) {
+        console.log(shuffle[QuestionIndex].id);
+        alert("This Will be the Last Element!");
+      }
     });
   } catch (err) {
     console.error(err);
