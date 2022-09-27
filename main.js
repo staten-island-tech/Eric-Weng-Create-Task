@@ -41,9 +41,9 @@ async function getData(URL) {
       );
     }
 
-    DOMSelectors.form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const answer = DOMSelectors.name.value;
+    displayE();
+
+    function check(answer) {
       const correct = shuffle[QuestionIndex].name;
 
       if (answer.toLowerCase() === correct.toLowerCase()) {
@@ -71,8 +71,14 @@ async function getData(URL) {
         console.log(shuffle[QuestionIndex].id);
         alert("This Will be the Last Element!");
       }
+    }
+
+    DOMSelectors.form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const answer = DOMSelectors.name.value;
+      check(answer);
     });
-    displayE();
+
     DOMSelectors.skip.addEventListener("click", function (e) {
       e.preventDefault();
       DOMSelectors.list2.innerHTML = "";
