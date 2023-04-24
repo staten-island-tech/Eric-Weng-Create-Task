@@ -39,3 +39,196 @@
     <script type="module" src="./main.js"></script>
 </body>
 </html>
+
+
+<script>
+    const URL = "https://periodic-table-elements-info.herokuapp.com/elements";
+
+        const DOMSelectors = {
+            box: document.getElementById("box"),
+            display: document.getElementById("display"),
+            start: document.getElementById("start"),
+            skip: document.getElementById("skip"),
+            form: document.getElementById("form"),
+            name: document.getElementById("name"),
+            card: document.getElementById("display-card"),
+            list1: document.getElementById("list1"),
+            list2: document.getElementById("list2"),
+        };
+
+        getData(URL);
+
+        async function getData(URL) {
+            try {
+                const response = await fetch(URL);
+                const data = await response.json();
+                var QuestionIndex = 0;
+                const QuestionHistory = [];
+                const SkipHistory = [];
+
+                const shuffle = data
+                    .sort(() => Math.random() - 0.5)
+                    .map((data, index) => ({
+                        name: data.name,
+                        symbol: data.symbol,
+                        id: index + 1,
+                    }));
+
+                console.log(shuffle);
+                function displayE() {
+                    DOMSelectors.card.insertAdjacentHTML(
+                        "afterbegin",
+                        `<div class="card">
+<h2 class="display-text" >${shuffle[QuestionIndex].symbol}</h2>
+      </div>
+ `
+                    );
+                }
+
+                displayE();
+
+                function check(answer) {
+                    const correct = shuffle[QuestionIndex].name;
+
+                    if (answer.toLowerCase() === correct.toLowerCase()) {
+                        DOMSelectors.list1.innerHTML = "";
+                        QuestionHistory.push(shuffle[QuestionIndex]);
+                        QuestionIndex = QuestionIndex + 1;
+                        DOMSelectors.card.innerHTML = "";
+                        displayE();
+                        DOMSelectors.form.reset();
+
+                        QuestionHistory.forEach((shuffles) => {
+                            DOMSelectors.list1.insertAdjacentHTML(
+                                "afterbegin",
+                                `<div>
+   <h2>${shuffles.symbol} = ${shuffles.name}</h2>
+          </div>
+   `
+                            );
+                        });
+                    }
+                    if (answer.toLowerCase() !== correct.toLowerCase()) {
+                        DOMSelectors.form.reset();
+                    }
+                    if (shuffle[QuestionIndex].id == 118) {
+                        console.log(shuffle[QuestionIndex].id);
+                        alert("This Will be the Last Element!");
+                    }
+                }
+
+                DOMSelectors.form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const answer = DOMSelectors.name.value;
+                    check(answer);
+                });
+
+                DOMSelectors.skip.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    DOMSelectors.list2.innerHTML = "";
+                    SkipHistory.push(shuffle[QuestionIndex]);
+                    QuestionIndex = QuestionIndex + 1;
+                    DOMSelectors.card.innerHTML = "";
+                    displayE();
+                    DOMSelectors.form.reset();
+
+                    SkipHistory.forEach((shuffles) => {
+                        DOMSelectors.list2.insertAdjacentHTML(
+                            "afterbegin",
+                            `<div>
+ <h2>${shuffles.symbol} = ${shuffles.name}</h2>
+        </div>
+ `
+                        );
+                    });
+                    if (shuffle[QuestionIndex].id == 118) {
+                        console.log(shuffle[QuestionIndex].id);
+                        alert("This Will be the Last Element!");
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+</script>
+
+
+<style>
+    html,
+body,
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+
+body{
+  display: flex;
+  justify-content: center;
+}
+
+h2{
+  font-size: 2rem;
+}
+
+input {
+  width: 50%;
+}
+
+form{
+  margin-top: 5rem;
+  font-size: 4rem;
+}
+
+#display-card {
+  height: 20rem;
+  width: 20rem;
+  border-radius: 1rem;
+  box-shadow: 1rem 1rem 1rem;
+  transition: all .2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-text{
+  font-size: 10rem;
+}
+#display{
+  display: flex;
+  margin: 20rem;
+  flex-direction: column;
+align-items: center;
+}
+
+#display-card:hover { 
+  transform: scale(1.1); 
+}
+
+#skip, #start{
+  margin-top: 1rem;
+  border-radius: 2rem;
+  font-size: 3rem;
+  height: 5rem;
+  width: 10rem;
+
+}
+
+#list{
+  display: flex;
+  margin-top: 2rem;
+  justify-content: space-evenly;
+}
+
+#list1, #list2{
+  text-align: center;
+  width: 30rem;
+  height: auto;
+  border-radius: 2rem;
+  border-style: solid;
+  background-color: lightblue;
+}
+</style>
